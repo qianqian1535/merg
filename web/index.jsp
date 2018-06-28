@@ -1,5 +1,6 @@
 
 
+<%@page import="org.mypackage.tc.MySQLConn"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="org.json.*"%>
@@ -18,49 +19,11 @@
     </head>
     <body>
 
-        <%
-
-            //  String db = request.getParameter("db");
-            try {
-
-                Class.forName("com.mysql.jdbc.Driver");
-                out.println("before successfully opened.");
-
-                java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/ensat?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "audrey970925");
-                out.println("database successfully opened.");
-                Statement st = con.createStatement();
-
-                String query = "select * from ACC_Biomaterial "; //recreate  figure 1.1.1 from Ashley's paper
-
-                ResultSet rs = st.executeQuery(query);
-//                while (rs.next()) {
-//                    int id = rs.getInt("id");
-//                    String firstName = rs.getString("first_name");
-//                    String lastName = rs.getString("last_name");
-//                    Date dateCreated = rs.getDate("date_created");
-//                    boolean isAdmin = rs.getBoolean("is_ad
-//                    System.out.format("%s, %s, %s, %s, %s, %s\n", id, firstName, lastName, dateCreated, isAdmin, numPoints);
-//
-//                }
-                Converter converter = new Converter();
-                JSONArray result = converter.convertToJSON(rs);
-                double plasma = 0, serum = 0, spot = 0, urine = 0;
-                double nResults = result.length();
-                String valid = "Yes";
-                for (int i = 0; i < nResults; i++) {
-                    JSONObject userInfo = result.getJSONObject(i);
-                    if (userInfo.getString("serum").equals(valid)) {
-                        serum += 1;
-                    }
-
-        %>
-        <!--    <tr>
-                <td><%=userInfo%><td><br>
-        
-            </tr> -->
-        <%
-            }
-        %>
+     
+        <ul>
+        <li><a href="home">Home</a></li>
+        <li><a href="biocompleteness">BioCompleteness</a></li>
+     </ul>
         <div id = "container" style = "width: 550px; height: 400px; margin: 0 auto"></div>
         <script language = "JavaScript">
             $(document).ready(function () {
@@ -119,7 +82,7 @@
                 var series = [
                     {
                         name: 'Year 1800',
-                        data: ["<%=serum / nResults%>", 0.31, 0.635, 0.203, 0.2]
+                        data: [1, 0.31, 0.635, 0.203, 0.2]
                     },
                     {
                         name: 'Year 1900',
@@ -144,19 +107,9 @@
                 json.credits = credits;
                 $('#container').highcharts(json);
             });
-            alert("<%=serum / nResults%>");
+//           
         </script>
-        <h1><%=serum / nResults%></h1>
+             <h1>Hello World!</h1>
 
-        <%
-
-            } catch (Exception e) {
-                out.println("SQLException caught: " + e.getMessage());
-            }
-        %>
-
-
-    </body>
-    <h1>Hello World!</h1>
 </body>
 </html>

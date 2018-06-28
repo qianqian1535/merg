@@ -3,6 +3,7 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import org.mypackage.tc.MySQLConn;
 import java.sql.*;
 import org.json.*;
 import org.mypackage.tc.Converter;
@@ -52,6 +53,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("\n");
+      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
@@ -64,55 +66,11 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    </head>\n");
       out.write("    <body>\n");
       out.write("\n");
-      out.write("        ");
-
-
-            //  String db = request.getParameter("db");
-            try {
-
-                Class.forName("com.mysql.jdbc.Driver");
-                out.println("before successfully opened.");
-
-                java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/ensat?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "audrey970925");
-                out.println("database successfully opened.");
-                Statement st = con.createStatement();
-
-                String query = "select * from ACC_Biomaterial "; //recreate  figure 1.1.1 from Ashley's paper
-
-                ResultSet rs = st.executeQuery(query);
-//                while (rs.next()) {
-//                    int id = rs.getInt("id");
-//                    String firstName = rs.getString("first_name");
-//                    String lastName = rs.getString("last_name");
-//                    Date dateCreated = rs.getDate("date_created");
-//                    boolean isAdmin = rs.getBoolean("is_ad
-//                    System.out.format("%s, %s, %s, %s, %s, %s\n", id, firstName, lastName, dateCreated, isAdmin, numPoints);
-//
-//                }
-                Converter converter = new Converter();
-                JSONArray result = converter.convertToJSON(rs);
-                double plasma = 0, serum = 0, spot = 0, urine = 0;
-                double nResults = result.length();
-                String valid = "Yes";
-                for (int i = 0; i < nResults; i++) {
-                    JSONObject userInfo = result.getJSONObject(i);
-                    if (userInfo.getString("serum").equals(valid)) {
-                        serum += 1;
-                    }
-
-        
-      out.write("\n");
-      out.write("        <!--    <tr>\n");
-      out.write("                <td>");
-      out.print(userInfo);
-      out.write("<td><br>\n");
-      out.write("        \n");
-      out.write("            </tr> -->\n");
-      out.write("        ");
-
-            }
-        
-      out.write("\n");
+      out.write("     \n");
+      out.write("        <ul>\n");
+      out.write("        <li><a href=\"home\">Home</a></li>\n");
+      out.write("        <li><a href=\"biocompleteness\">BioCompleteness</a></li>\n");
+      out.write("     </ul>\n");
       out.write("        <div id = \"container\" style = \"width: 550px; height: 400px; margin: 0 auto\"></div>\n");
       out.write("        <script language = \"JavaScript\">\n");
       out.write("            $(document).ready(function () {\n");
@@ -171,9 +129,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                var series = [\n");
       out.write("                    {\n");
       out.write("                        name: 'Year 1800',\n");
-      out.write("                        data: [\"");
-      out.print(serum / nResults);
-      out.write("\", 0.31, 0.635, 0.203, 0.2]\n");
+      out.write("                        data: [1, 0.31, 0.635, 0.203, 0.2]\n");
       out.write("                    },\n");
       out.write("                    {\n");
       out.write("                        name: 'Year 1900',\n");
@@ -198,26 +154,10 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                json.credits = credits;\n");
       out.write("                $('#container').highcharts(json);\n");
       out.write("            });\n");
-      out.write("            alert(\"");
-      out.print(serum / nResults);
-      out.write("\");\n");
+      out.write("//           \n");
       out.write("        </script>\n");
-      out.write("        <h1>");
-      out.print(serum / nResults);
-      out.write("</h1>\n");
+      out.write("             <h1>Hello World!</h1>\n");
       out.write("\n");
-      out.write("        ");
-
-
-            } catch (Exception e) {
-                out.println("SQLException caught: " + e.getMessage());
-            }
-        
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("    </body>\n");
-      out.write("    <h1>Hello World!</h1>\n");
       out.write("</body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

@@ -1,0 +1,18 @@
+SMAP
+BioCompleteness_jsp.java
+JSP
+*S JSP
+*F
++ 0 BioCompleteness.jsp
+WEB-INF/BioCompleteness.jsp
+*L
+5,24:45
+29,5:70
+33,2:75
+35,2:77,3
+37,57:83
+94,2:140,3
+96:146
+97:147,3
+98,4:150
+*E
