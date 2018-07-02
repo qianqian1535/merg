@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package org.mypackage.tc.servlet;
 
 /**
@@ -27,8 +23,8 @@ import org.mypackage.tc.DBUtils;
 import org.mypackage.tc.MyUtils;
 import org.json.*;
 
-@WebServlet(urlPatterns = {"/biocompleteness"})
-public class BioCompleteness extends HttpServlet {
+@WebServlet(urlPatterns = {"/centrecompleteness"})
+public class CentreCompleteness extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,7 +33,7 @@ public class BioCompleteness extends HttpServlet {
     }
 //    private static String fields[] = {"whole_blood", "spot_urine", "normal_tissue", "tumor_tissue_paraffin", "tumor_tissue_frozen", "plasma", "serum"};
 
-    public BioCompleteness() {
+    public CentreCompleteness() {
         super();
     }
 
@@ -69,7 +65,7 @@ public class BioCompleteness extends HttpServlet {
 
             // Forward to /WEB-INF/views/productListView.jsp
             RequestDispatcher dispatcher = request.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/BioCompleteness.jsp");
+                    .getRequestDispatcher("/WEB-INF/CentreCompleteness.jsp");
             dispatcher.forward(request, response);
         } catch (JSONException ex) {
             Logger.getLogger(BioCompleteness.class.getName()).log(Level.SEVERE, null, ex);

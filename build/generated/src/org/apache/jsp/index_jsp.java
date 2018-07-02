@@ -70,6 +70,8 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <ul>\n");
       out.write("        <li><a href=\"home\">Home</a></li>\n");
       out.write("        <li><a href=\"biocompleteness\">BioCompleteness</a></li>\n");
+      out.write("                <li><a href=\"centrecompleteness\">CentreCompleteness</a></li>\n");
+      out.write("\n");
       out.write("     </ul>\n");
       out.write("        <div id = \"container\" style = \"width: 550px; height: 400px; margin: 0 auto\"></div>\n");
       out.write("        <script language = \"JavaScript\">\n");

@@ -23,6 +23,8 @@
         <ul>
         <li><a href="home">Home</a></li>
         <li><a href="biocompleteness">BioCompleteness</a></li>
+                <li><a href="centrecompleteness">CentreCompleteness</a></li>
+
      </ul>
         <div id = "container" style = "width: 550px; height: 400px; margin: 0 auto"></div>
         <script language = "JavaScript">
