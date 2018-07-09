@@ -82,13 +82,12 @@ public class DBUtils {
     }
 
     public static void queryBiomaterial(Connection conn) throws SQLException {
-                        final String valid = "yes";
 
         int nTables = 0;
         for (TumorType tumor : TumorType.values()) {
-            if(nTables == 4){ // query the first 4 tables
+            if (nTables == 4) { // query the first 4 tables
                 break;
-            
+
             }
             String table = tumor.name() + "_Biomaterial";
             String sql = "Select * from " + table;
@@ -104,47 +103,32 @@ public class DBUtils {
                 Patient patient = patients.get(key);
                 if (patient == null) {
                     patient = addPatientToHM(center, ensatID, tumor.name());
-//                    return;
                 }
-//                errormsg += key + " from " + table + "\n\r";
-//                System.out.println(key + " from " + table);
-
-                if (patient.getTumorType() == null) {
-                    errormsg += key + " from " + table + " tumor type can't be found";
-//                    System.out.println(errormsg);
-
-                }
+                
                 if (tumor == patient.getTumorType()) {
                     Biomaterial bio = patient.getBiomaterial();
-                    String spot_urine = rs.getString("spot_urine").toLowerCase();
-                     patients.get(key).getBiomaterial().setSpot_urine(spot_urine.equals(valid));
+                    int fields = Biomaterial.NUM_FIELDS;
+                    for (int i = 0; i < fields; i++) {
+                        validateBioField(i, bio, rs);
 
-                        String twenty_four_hr_urine = rs.getString("24h_urine").toLowerCase();
-                        patients.get(key).getBiomaterial().setTwenty_four_hr_urine(twenty_four_hr_urine.equals(valid));
-
-                        String normal_tissue = rs.getString("normal_tissue").toLowerCase();
-                        bio.setNormal_tissue(normal_tissue.equals(valid));
-
-//                        String tumor_tissue_paraffin = rs.getString("tumor_tissue_paraffin").toLowerCase();
-//                        patient.setBiomaterial.setTumor_tissue_paraffin(tumor_tissue_paraffin.equals(valid));
-//
-//                        String tumor_tissue_frozen = rs.getString("tumor_tissue_frozen").toLowerCase();
-//                        bio.setTumor_tissue_frozen(tumor_tissue_frozen.equals(valid));
-////
-//    private boolean whole_blood;
-//    private boolean plasma;
-//    private boolean serum;
+                    }
                 }
 
             }
             nTables++;
         }
     }
-//    private void validateBioField(String field, Patient patient){
-//                patient.getBiomaterial()
-//
-//        
-//    }
+
+    private static void validateBioField(int index, Biomaterial bio, ResultSet rs) throws SQLException {
+        final String valid = "yes";
+
+        if (!bio.getFieldValidness()[index]) { //if the field is not true
+            String field = rs.getString(Biomaterial.COLUMN_NAMES[index]);
+            bio.setFieldValidness(index, field.toLowerCase().equals(valid));
+
+        }
+
+    }
 
     private static void buildData(Connection conn) throws SQLException {
         queryPatient(conn);

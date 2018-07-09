@@ -35,7 +35,6 @@ public class BioCompleteness extends HttpServlet {
     private enum BioMaterial {
         whole_blood, spot_urine, normal_tissue, tumor_tissue_paraffin, tumor_tissue_frozen, plasma, serum
     }
-//    private static String fields[] = {"whole_blood", "spot_urine", "normal_tissue", "tumor_tissue_paraffin", "tumor_tissue_frozen", "plasma", "serum"};
 
     public BioCompleteness() {
         super();
@@ -56,6 +55,8 @@ public class BioCompleteness extends HttpServlet {
             } catch (SQLException ex) {
                                 errorString = ex.getMessage();
 
+                Logger.getLogger(BioCompleteness.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
                 Logger.getLogger(BioCompleteness.class.getName()).log(Level.SEVERE, null, ex);
             }
             JSONArray ACC_CompPercentage = calcBioPercentage(ACCList);

@@ -42,7 +42,7 @@
 
         <%     if (patient.getBiomaterial() != null) {
         %> 
-        <p><%= patient.getTumorType()%> <%= patient.getBiomaterial().isNormal_tissue()%></p>
+        <p><%= patient.getTumorType()%> <%= patient.getBiomaterial().getFieldValidness()[0]%></p>
         <%
                 }
             }

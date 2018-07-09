@@ -6,18 +6,28 @@ package org.mypackage.tc.beans;
  */
 public class Biomaterial {
 
-    private boolean spot_urine;
-    private boolean twenty_four_hr_urine;
+//    private boolean spot_urine;
+//    private boolean twenty_four_hr_urine;
+//
+//    private boolean normal_tissue;
+//    private boolean tumor_tissue_paraffin;
+//    private boolean tumor_tissue_frozen;
+//
+//    private boolean whole_blood;
+//    private boolean plasma;
+//    private boolean serum;
+    public final static int SPOT_URINE = 0;
+    public final static int TWENTY_FOUR_HR_URINE = 1;
+    public final static int NORMAL_TISSUE = 2;
+    public final static int NORMAL_TISSUE_PARAFFIN = 3;
+    public final static int NORMAL_TISSUE_FROZEN = 4;
+    public final static int WHOLE_BLOOD = 5;
+    public final static int PLASMA = 6;
+    public final static int SERUM = 7;
+    public final static int NUM_FIELDS = 8;
+    public final static String COLUMN_NAMES[] = { "spot_urine", "24h_urine", "normal_tissue", "tumor_tissue_paraffin", "tumor_tissue_frozen","whole_blood", "plasma", "serum"};
 
-    private boolean normal_tissue;
-    private boolean tumor_tissue_paraffin;
-    private boolean tumor_tissue_frozen;
-
-    private boolean whole_blood;
-    private boolean plasma;
-    private boolean serum;
-    
-    private boolean[] fieldValidness;
+    private boolean[] fieldValidness = new boolean[NUM_FIELDS];
 
     public boolean[] getFieldValidness() {
         return fieldValidness;
@@ -26,69 +36,16 @@ public class Biomaterial {
     public void setFieldValidness(int index, boolean fieldValidness) {
         this.fieldValidness[index] = fieldValidness;
     }
-    public boolean isSpot_urine() {
-        return spot_urine;
+    public boolean isComplete(TumorType type){
+        boolean complete = false;
+        switch (type){
+            case ACC :
+                break;
+                
+            default:
+                
+        }
+        return complete;
     }
-
-    public void setSpot_urine(boolean spot_urine) {
-        this.spot_urine = spot_urine;
-    }
-
-    public boolean isTwenty_four_hr_urine() {
-        return twenty_four_hr_urine;
-    }
-
-    public void setTwenty_four_hr_urine(boolean twenty_four_hr_urine) {
-        this.twenty_four_hr_urine = twenty_four_hr_urine;
-    }
-
-    public boolean isNormal_tissue() {
-        return normal_tissue;
-    }
-
-    public void setNormal_tissue(boolean normal_tissue) {
-        this.normal_tissue = normal_tissue;
-    }
-
-    public boolean isTumor_tissue_paraffin() {
-        return tumor_tissue_paraffin;
-    }
-
-    public void setTumor_tissue_paraffin(boolean tumor_tissue_paraffin) {
-        this.tumor_tissue_paraffin = tumor_tissue_paraffin;
-    }
-
-    public boolean isTumor_tissue_frozen() {
-        return tumor_tissue_frozen;
-    }
-
-    public void setTumor_tissue_frozen(boolean tumor_tissue_frozen) {
-        this.tumor_tissue_frozen = tumor_tissue_frozen;
-    }
-
-    public boolean isWhole_blood() {
-        return whole_blood;
-    }
-
-    public void setWhole_blood(boolean whole_blood) {
-        this.whole_blood = whole_blood;
-    }
-
-    public boolean isPlasma() {
-        return plasma;
-    }
-
-    public void setPlasma(boolean plasma) {
-        this.plasma = plasma;
-    }
-
-    public boolean isSerum() {
-        return serum;
-    }
-
-    public void setSerum(boolean serum) {
-        this.serum = serum;
-    }
-
 
 }
