@@ -27,11 +27,11 @@
             String error = (String) request.getAttribute("errorString");
         %>
         
-        <h1>Biomaterial Completeness </h1>
+        <h1>Biomaterial Completeness by tumour types</h1>
         <p id = "error_msg">Error message: <%= error%></p> <br><br>
-
-        <div id = "ACCChart" style = "width: 700px; height: 400px; margin: 0 auto"></div>
-        <div id = "APAChart" style = "width: 700px; height: 400px; margin: 0 auto"></div>
+        <h4>Completeness ratio is calculated by number of valid entries/total records</h4>
+        <div id = "ACCChart" style = "width: 900px; height: 400px; margin: 0 auto"></div>
+        <div id = "APAChart" style = "width: 900px; height: 400px; margin: 0 auto"></div>
 
         <p id="demo"></p>
 

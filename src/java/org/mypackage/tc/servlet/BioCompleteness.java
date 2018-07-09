@@ -53,9 +53,10 @@ public class BioCompleteness extends HttpServlet {
             try {
                 ACCList = DBUtils.queryAll(conn, "ACC_Biomaterial");
                 APAList = DBUtils.queryAll(conn, "APA_Biomaterial");
-            } catch (Exception e) {
-                e.printStackTrace();
-                errorString = e.getMessage();
+            } catch (SQLException ex) {
+                                errorString = ex.getMessage();
+
+                Logger.getLogger(BioCompleteness.class.getName()).log(Level.SEVERE, null, ex);
             }
             JSONArray ACC_CompPercentage = calcBioPercentage(ACCList);
             JSONArray APA_CompPercentage = calcBioPercentage(APAList);
@@ -97,17 +98,17 @@ public class BioCompleteness extends HttpServlet {
     private JSONArray calcBioPercentage(JSONArray records) throws JSONException {
         double nRecords = records.length();
         int nFields = BioMaterial.values().length;
-        int[] ValidRecords = new int[nFields]; //used to record the number of valid data for each field
+        int[] nValidRecords = new int[nFields]; //used to record the number of valid data for each field
         //populate array with 0
         for (int j = 0; j < nFields; j++) {
-            ValidRecords[j] = 0;
+            nValidRecords[j] = 0;
         }
         for (int i = 0; i < nRecords; i++) {
             JSONObject record = records.getJSONObject(i);
 
             for (int j = 0; j < nFields; j++) {
                 if (isValid(record, BioMaterial.values()[j].name())) {
-                    ValidRecords[j]++;
+                    nValidRecords[j]++;
                 }
             }
         }
@@ -116,7 +117,7 @@ public class BioCompleteness extends HttpServlet {
         JSONArray figures = new JSONArray();
 
         for (int i = 0; i < nFields; i++) {
-            figures.put(ValidRecords[i] / nRecords * 100);
+            figures.put(nValidRecords[i] / nRecords * 100);
         }
       
         return figures;

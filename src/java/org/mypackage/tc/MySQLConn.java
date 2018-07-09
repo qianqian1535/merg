@@ -8,6 +8,8 @@ package org.mypackage.tc;
  * 
  */
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MySQLConn {
 
@@ -40,13 +42,17 @@ public class MySQLConn {
      public static void closeQuietly(Connection conn) {
         try {
             conn.close();
-        } catch (Exception e) {
+        } catch (SQLException ex) {
+            Logger.getLogger(MySQLConn.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+       
     }
       public static void rollbackQuietly(Connection conn) {
         try {
             conn.rollback();
-        } catch (Exception e) {
+        } catch (SQLException ex) {
+            Logger.getLogger(MySQLConn.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

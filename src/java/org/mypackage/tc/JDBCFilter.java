@@ -1,12 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *
+ * @author o7planning
+ * modified based on :
+ * https://o7planning.org/en/10285/create-a-simple-java-web-application-using-servlet-jsp-and-jdbc#a812142
+ * 
  */
 package org.mypackage.tc;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Map;
 
@@ -102,9 +105,8 @@ public class JDBCFilter implements Filter {
  
                 // Invoke the commit() method to complete the transaction with the DB.
                 conn.commit();
-            } catch (Exception e) {
-                e.printStackTrace();
-                MySQLConn.rollbackQuietly(conn);                throw new ServletException();
+            } catch (IOException | ClassNotFoundException | SQLException | ServletException e) {
+                MySQLConn.rollbackQuietly(conn);              
             } finally {
                 MySQLConn.closeQuietly(conn);
             }
