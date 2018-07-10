@@ -1,4 +1,3 @@
-
 package org.mypackage.tc.servlet;
 
 /**
@@ -28,7 +27,6 @@ import org.mypackage.tc.beans.Patient;
 @WebServlet(urlPatterns = {"/centercompleteness"})
 public class CentreCompleteness extends HttpServlet {
 
-
     public CentreCompleteness() {
         super();
     }
@@ -38,18 +36,31 @@ public class CentreCompleteness extends HttpServlet {
             throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
         String errorString = null;
-         HashMap<String, Patient> patients = null;
+        HashMap<String, Patient> patients = null;
         try {
             patients = DBUtils.getPatients(conn);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(CentreCompleteness.class.getName()).log(Level.SEVERE, null, ex);
             errorString = ex.getMessage();
         }
+        try {
+                    JSONObject graphData = calcCenterStat(patients);
+
+            JSONArray names = graphData.getJSONArray("name");
+            JSONArray data = graphData.getJSONArray("ratio");
+        request.setAttribute("columnnames", names);
+        request.setAttribute("data", data);
+
+        } catch (JSONException ex) {
+            Logger.getLogger(CentreCompleteness.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         // Store info in request attribute, before forward to views
         request.setAttribute("errorString", errorString);
         request.setAttribute("PatientsHM", patients);
-                request.setAttribute("errorfromUtils", DBUtils.errormsg);
+
+        request.setAttribute("errorfromUtils", DBUtils.errormsg);
 
         // Forward to /WEB-INF/views/productListView.jsp
         RequestDispatcher dispatcher = request.getServletContext()
@@ -62,4 +73,50 @@ public class CentreCompleteness extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
     }
+
+    private JSONObject calcCenterStat(HashMap<String, Patient> patients) throws JSONException {
+        HashMap<String, RatioStringPair> centers = new HashMap<>();
+
+        Iterator iterator = patients.keySet().iterator();
+        // add centers and its completeness count to a center hashmap
+        while (iterator.hasNext()) {
+            String patientID = (String) iterator.next();
+            Patient patient = (Patient) patients.get(patientID);
+            String centerName = patient.getCenter();
+            if (centers.get(centerName) == null) {
+                centers.put(centerName, new RatioStringPair(centerName));
+
+            }
+            RatioStringPair centerRecord = centers.get(centerName);
+            if (patient.isComplete()) {
+                centerRecord.incrementValid();
+            }
+            centerRecord.incrementTotal();
+
+        }
+        Iterator resultIterator = centers.keySet().iterator();
+
+        JSONArray name = new JSONArray();
+        JSONArray ratio = new JSONArray();
+
+        while (resultIterator.hasNext()) {
+            String centerName = (String) resultIterator.next();
+            RatioStringPair center = (RatioStringPair) centers.get(centerName);
+            name.put(center.getStringValue());
+            double percentage = ((double)center.getValid() )/ center.getTotal()*100.0;
+            ratio.put(percentage);
+        }
+        JSONObject data = new JSONObject();
+        try {
+            data.put("name", name);
+
+            data.put("ratio", ratio);
+        } catch (JSONException ex) {
+            Logger.getLogger(CentreCompleteness.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return data;
+
+    }
+
 }

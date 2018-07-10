@@ -8,12 +8,8 @@ package org.mypackage.tc;
  */
 import static java.lang.System.out;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import org.json.*;
 import org.mypackage.tc.beans.Patient;
 import org.apache.logging.log4j.*;
@@ -129,10 +125,39 @@ public class DBUtils {
         }
 
     }
+      public static void queryPathology(Connection conn) throws SQLException {
+
+        String tumorTypes[] = { "ACC", "NAPACA"};
+        for (String tumor : tumorTypes) {
+           
+            String table = tumor + "_Pathology";
+            String sql = "Select * from " + table;
+
+            PreparedStatement pstm = conn.prepareStatement(sql);
+
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                int ensatID = rs.getInt("ensat_id");
+                String center = rs.getString("center_id");
+                //identifier is ensat id + center id
+                String key = ensatID + center;
+                Patient patient = patients.get(key);
+                if (patient == null) {
+                    patient = addPatientToHM(center, ensatID, tumor);
+                }
+                
+                if (tumor == patient.getTumorType().name()) {
+                    
+                }
+
+            }
+        }
+    }
 
     private static void buildData(Connection conn) throws SQLException {
         queryPatient(conn);
         queryBiomaterial(conn);
+//        queryPathology(conn);
         initialized = true;
     }
 

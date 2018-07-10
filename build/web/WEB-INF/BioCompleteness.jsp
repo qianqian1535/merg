@@ -23,7 +23,6 @@
             JSONArray APA_CompPercentage = (JSONArray) request.getAttribute("APA_CompPercentage");
 
             JSONArray fields = (JSONArray) request.getAttribute("categories");
-
             String error = (String) request.getAttribute("errorString");
         %>
         

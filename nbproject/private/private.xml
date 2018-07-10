@@ -4,11 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/audrey/NetBeansProjects/tc/src/java/org/mypackage/tc/beans/Patient.java</file>
-            <file>file:/Users/audrey/NetBeansProjects/tc/src/java/org/mypackage/tc/Biomaterial.java</file>
-            <file>file:/Users/audrey/NetBeansProjects/tc/src/java/org/mypackage/tc/beans/Biomaterial.java</file>
             <file>file:/Users/audrey/NetBeansProjects/tc/src/java/org/mypackage/tc/servlet/CentreCompleteness.java</file>
+            <file>file:/Users/audrey/NetBeansProjects/tc/src/java/org/mypackage/tc/beans/Biomaterial.java</file>
             <file>file:/Users/audrey/NetBeansProjects/tc/web/WEB-INF/CentreCompleteness.jsp</file>
             <file>file:/Users/audrey/NetBeansProjects/tc/src/java/org/mypackage/tc/DBUtils.java</file>
+            <file>file:/Users/audrey/NetBeansProjects/tc/src/java/org/mypackage/tc/servlet/BioCompleteness.java</file>
+            <file>file:/Users/audrey/NetBeansProjects/tc/web/WEB-INF/BioCompleteness.jsp</file>
         </group>
     </open-files>
 </project-private>

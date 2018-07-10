@@ -12,7 +12,10 @@ public class Patient {
     private String center;
     private TumorType tumorType;
     private Biomaterial biomaterial;
-
+    
+    public boolean isComplete(){
+        return biomaterial.isComplete(tumorType);
+    }
     public int getEnsatID() {
         return ensatID;
     }
@@ -48,5 +51,6 @@ public class Patient {
     public void setBiomaterial(Biomaterial biomaterial) {
         this.biomaterial = biomaterial;
     }
+    
 
 }

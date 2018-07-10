@@ -25,7 +25,7 @@ public class Biomaterial {
     public final static int PLASMA = 6;
     public final static int SERUM = 7;
     public final static int NUM_FIELDS = 8;
-    public final static String COLUMN_NAMES[] = { "spot_urine", "24h_urine", "normal_tissue", "tumor_tissue_paraffin", "tumor_tissue_frozen","whole_blood", "plasma", "serum"};
+    public final static String COLUMN_NAMES[] = {"spot_urine", "24h_urine", "normal_tissue", "tumor_tissue_paraffin", "tumor_tissue_frozen", "whole_blood", "plasma", "serum"};
 
     private boolean[] fieldValidness = new boolean[NUM_FIELDS];
 
@@ -36,14 +36,25 @@ public class Biomaterial {
     public void setFieldValidness(int index, boolean fieldValidness) {
         this.fieldValidness[index] = fieldValidness;
     }
-    public boolean isComplete(TumorType type){
+
+    public boolean isComplete(TumorType type) {
         boolean complete = false;
-        switch (type){
-            case ACC :
+        switch (type) {
+            case ACC:
+                complete = false;
                 break;
-                
+            case NAPACA:
+                complete = true;
+                break;
+            case APA:
+                complete = false;
+                break;
+            case Pheo:
+                complete = true;
+                break;
+
             default:
-                
+                complete = false;
         }
         return complete;
     }
