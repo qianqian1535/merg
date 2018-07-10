@@ -33,9 +33,7 @@
 
         <p id = "error_msg">Error message:  <%= utilserror%></p> <br><br>
         <p id ="column_names"><%=columnNames%></p>
-        <p id="demo">["","HYBU","TRIZ","FRSQ","FRST","ITFL","FRPA1","FRPA2","FRPA3","GYDR","SPOV","GYBN2","ITMI","GBOX","ITMI2","FRRO","FRBE","FRBO","GYMV","JPSE","GYMU","ITNA","FRBR","GYMZ","FRMA","GBBI","NLAM","FRMO","PTCO","IRDU","PLWW2","GBCD","AUME2","FRNA","NLRO","GBIP","GBMA2","FRTO","FRLI","NYBE","FRTR","SWGO","FRDI","GYWU","ROBU","PLKK","SPBA","ITPD","BGSO","GRAT","USTX","ITRO","GBMA","FRGR","SPMA","USMN","ITBR","GRAT2","GBED","USMI","GYBN","ITPD2","PTLI","SPSV","SLLB","BZSP","GYDF2","GBLB","LIKA","GBLD","GBLF","GBLE","GBLG","GBDD","GBTT","GBLK","GBDE","NLEI","RUSP","CRZA","GYLE","ITTU","AUME","IRDU2","GYDF","FRAN","GYLU","NLNI","FRRE","IRGA","ITTU2","ITTU3","SZZH","GBNE","SBBE","GBNH","FRLY1","PLWW","FRLY2","ITBR2"]
-
-        </p>
+    
 
         <p id ="data"><%=data%></p>
         <script>
@@ -63,7 +61,6 @@
 
             $(document).ready(function () {
 
-                document.getElementById("demo").innerHTML = "fields_str";
 
                 const fields_str = $('#column_names').html();
                 const fields = JSON.parse(fields_str);
