@@ -12,10 +12,36 @@ public class Patient {
     private String center;
     private TumorType tumorType;
     private Biomaterial biomaterial;
-    
-    public boolean isComplete(){
-        return biomaterial.isComplete(tumorType);
+    private Imaging imaging;
+    private Pathology pathology;
+
+    private boolean undergoneSurgery;
+
+
+
+    public boolean isComplete() {
+        boolean surgeryData = true;
+        if (undergoneSurgery){
+            surgeryData = pathology.isComplete();
+        }
+        return biomaterial.isComplete(tumorType) && imaging.isComplete() && surgeryData;
     }
+        public boolean isUndergoneSurgery() {
+        return undergoneSurgery;
+    }
+
+    public void setUndergoneSurgery(boolean undergoneSurgery) {
+        this.undergoneSurgery = undergoneSurgery;
+    }
+
+    public Pathology getPathology() {
+        return pathology;
+    }
+
+    public void setPathology(Pathology pathology) {
+        this.pathology = pathology;
+    }
+    
     public int getEnsatID() {
         return ensatID;
     }
@@ -51,6 +77,13 @@ public class Patient {
     public void setBiomaterial(Biomaterial biomaterial) {
         this.biomaterial = biomaterial;
     }
-    
+
+    public Imaging getImaging() {
+        return imaging;
+    }
+
+    public void setImaging(Imaging Imaging) {
+        this.imaging = Imaging;
+    }
 
 }

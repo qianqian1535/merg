@@ -26,7 +26,7 @@ import org.mypackage.tc.beans.Patient;
 
 @WebServlet(urlPatterns = {"/centercompleteness"})
 public class CentreCompleteness extends HttpServlet {
-
+    public static final int MIN_RECORDS = 2;
     public CentreCompleteness() {
         super();
     }
@@ -45,12 +45,12 @@ public class CentreCompleteness extends HttpServlet {
             errorString = ex.getMessage();
         }
         try {
-                    JSONObject graphData = calcCenterStat(patients);
+            JSONObject graphData = calcCenterStat(patients);
 
             JSONArray names = graphData.getJSONArray("name");
             JSONArray data = graphData.getJSONArray("ratio");
-        request.setAttribute("columnnames", names);
-        request.setAttribute("data", data);
+            request.setAttribute("columnnames", names);
+            request.setAttribute("data", data);
 
         } catch (JSONException ex) {
             Logger.getLogger(CentreCompleteness.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,9 +102,13 @@ public class CentreCompleteness extends HttpServlet {
         while (resultIterator.hasNext()) {
             String centerName = (String) resultIterator.next();
             RatioStringPair center = (RatioStringPair) centers.get(centerName);
-            name.put(center.getStringValue());
-            double percentage = ((double)center.getValid() )/ center.getTotal()*100.0;
-            ratio.put(percentage);
+
+            if (center.getTotal() >= MIN_RECORDS) {
+                name.put(center.getStringValue());
+                double percentage = ((double) center.getValid()) / center.getTotal() * 100.0;
+                ratio.put(percentage);
+            }
+
         }
         JSONObject data = new JSONObject();
         try {

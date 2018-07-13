@@ -20,7 +20,9 @@
  </welcome-file-list>
     <session-config>
         <session-timeout>
-            30
+            3000
         </session-timeout>
     </session-config>
+    <mvc:resources location="/" mapping="/**"></mvc:resources>
+
 </web-app>

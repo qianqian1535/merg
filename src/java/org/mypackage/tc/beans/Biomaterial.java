@@ -23,9 +23,11 @@ public class Biomaterial {
     public final static int NORMAL_TISSUE_FROZEN = 4;
     public final static int WHOLE_BLOOD = 5;
     public final static int PLASMA = 6;
-    public final static int SERUM = 7;
-    public final static int NUM_FIELDS = 8;
-    public final static String COLUMN_NAMES[] = {"spot_urine", "24h_urine", "normal_tissue", "tumor_tissue_paraffin", "tumor_tissue_frozen", "whole_blood", "plasma", "serum"};
+    public final static int HEPARIN_PLASMA = 7;
+    public final static int SERUM = 8;
+    
+    public final static int NUM_FIELDS = 9;
+    public final static String COLUMN_NAMES[] = {"spot_urine", "24h_urine", "normal_tissue", "tumor_tissue_paraffin", "tumor_tissue_frozen", "whole_blood", "plasma", "heparin_plasma", "serum"};
 
     private boolean[] fieldValidness = new boolean[NUM_FIELDS];
 
@@ -44,13 +46,14 @@ public class Biomaterial {
                 complete = false;
                 break;
             case NAPACA:
-                complete = true;
+                
+                complete =fieldValidness[TWENTY_FOUR_HR_URINE] && fieldValidness[SPOT_URINE] && fieldValidness[SERUM] && (fieldValidness[HEPARIN_PLASMA] || fieldValidness[PLASMA] ) ;
                 break;
             case APA:
                 complete = false;
                 break;
             case Pheo:
-                complete = true;
+                complete = false;
                 break;
 
             default:

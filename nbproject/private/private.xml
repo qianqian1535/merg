@@ -9,7 +9,7 @@
             <file>file:/Users/audrey/NetBeansProjects/tc/web/WEB-INF/CentreCompleteness.jsp</file>
             <file>file:/Users/audrey/NetBeansProjects/tc/src/java/org/mypackage/tc/DBUtils.java</file>
             <file>file:/Users/audrey/NetBeansProjects/tc/src/java/org/mypackage/tc/servlet/BioCompleteness.java</file>
-            <file>file:/Users/audrey/NetBeansProjects/tc/web/WEB-INF/BioCompleteness.jsp</file>
+            <file>file:/Users/audrey/NetBeansProjects/tc/src/java/org/mypackage/tc/beans/Imaging.java</file>
         </group>
     </open-files>
 </project-private>
