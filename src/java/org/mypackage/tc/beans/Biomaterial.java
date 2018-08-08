@@ -6,16 +6,6 @@ package org.mypackage.tc.beans;
  */
 public class Biomaterial {
 
-//    private boolean spot_urine;
-//    private boolean twenty_four_hr_urine;
-//
-//    private boolean normal_tissue;
-//    private boolean tumor_tissue_paraffin;
-//    private boolean tumor_tissue_frozen;
-//
-//    private boolean whole_blood;
-//    private boolean plasma;
-//    private boolean serum;
     public final static int SPOT_URINE = 0;
     public final static int TWENTY_FOUR_HR_URINE = 1;
     public final static int NORMAL_TISSUE = 2;

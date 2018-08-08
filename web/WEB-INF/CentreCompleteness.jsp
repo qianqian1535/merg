@@ -29,8 +29,8 @@
 
         <h4>Completeness criteria for each NAPACA patient's record is based on EURINE-ACT eligibility criteria.</h4>
         <p> biomaterial : [TWENTY_FOUR_HR_URINE] AND [SPOT_URINE] AND [SERUM] AND ([HEPARIN_PLASMA] OR [PLASMA] )<br>
-            Growth difference not considered.
-</p>
+            Growth difference not considered.<br>
+            </p>
         <p id = "error_msg">Error message: <%= error%></p> <br>
         <div id = "AllCenters" style = "width: 1800px; height: 400px; margin: 0 auto"></div>
         <p id = "error_msg">Error message:  <%= utilserror%></p> <br><br>

@@ -22,12 +22,12 @@ import org.mypackage.tc.MyUtils;
 import org.json.*;
 import org.mypackage.tc.beans.Patient;
 
-@WebServlet(urlPatterns = {"/centercompleteness"})
-public class CentreCompleteness extends HttpServlet {
+@WebServlet(urlPatterns = {"/interactive"})
+public class Interactive extends HttpServlet {
 
     public static final int MIN_RECORDS = 2;
 
-    public CentreCompleteness() {
+    public Interactive() {
         super();
     }
 
@@ -44,17 +44,17 @@ public class CentreCompleteness extends HttpServlet {
             errorString = ex.getMessage();
         }
         try {
-            JSONObject graphData = calcCenterStat(patients);
+            HashMap<String, Double> centersPercentage = calcCenterStat(patients);
+            Object[] names = centersPercentage.keySet().toArray();
+            request.setAttribute("centerNames", names);
 
-            JSONArray names = graphData.getJSONArray("name");
-            JSONArray data = graphData.getJSONArray("ratio");
-            request.setAttribute("columnnames", names);
-            request.setAttribute("data", data);
-
+            String centerNo = request.getParameter("center_name");
+            int centerNum = Integer.parseInt(centerNo);
+            Object centerName = names[centerNum];
+            request.setAttribute("center_name", centerName);
         } catch (JSONException ex) {
             errorString += ex.getMessage();
         }
-
         // Store info in request attribute, before forward to views
         request.setAttribute("errorString", errorString);
         request.setAttribute("PatientsHM", patients);
@@ -63,7 +63,7 @@ public class CentreCompleteness extends HttpServlet {
 
         // Forward to /WEB-INF/views/productListView.jsp
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/CentreCompleteness.jsp");
+                .getRequestDispatcher("/WEB-INF/Interactive.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -73,7 +73,7 @@ public class CentreCompleteness extends HttpServlet {
         doGet(request, response);
     }
 
-    private JSONObject calcCenterStat(HashMap<String, Patient> patients) throws JSONException {
+    private HashMap<String, Double> calcCenterStat(HashMap<String, Patient> patients) throws JSONException {
         HashMap<String, RatioStringPair> centers = new HashMap<>();
 
         Iterator iterator = patients.keySet().iterator();
@@ -95,27 +95,20 @@ public class CentreCompleteness extends HttpServlet {
         }
         Iterator resultIterator = centers.keySet().iterator();
 
-        JSONArray name = new JSONArray();
-        JSONArray ratio = new JSONArray();
+        HashMap<String, Double> centerPercentage = new HashMap<>();
 
         while (resultIterator.hasNext()) {
             String centerName = (String) resultIterator.next();
             RatioStringPair center = (RatioStringPair) centers.get(centerName);
 
             if (center.getTotal() >= MIN_RECORDS) {
-                name.put(center.getStringValue());
                 double percentage = ((double) center.getValid()) / center.getTotal() * 100.0;
-                ratio.put(percentage);
+                centerPercentage.put(center.getStringValue(), percentage);
             }
 
         }
-        JSONObject data = new JSONObject();
 
-        data.put("name", name);
-
-        data.put("ratio", ratio);
-
-        return data;
+        return centerPercentage;
 
     }
 
