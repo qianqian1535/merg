@@ -18,6 +18,12 @@
         <script src = "https://code.highcharts.com/highcharts.js"></script> 
     </head>
     <body>
+        <h1> Data Quality Comparison by Center</h1>
+
+        <h4>Completeness criteria for each NAPACA patient's record is based on EURINE-ACT eligibility criteria.</h4>
+        <p> biomaterial : [TWENTY_FOUR_HR_URINE] AND [SPOT_URINE] AND [SERUM] AND ([HEPARIN_PLASMA] OR [PLASMA] )<br>
+            Growth difference and biomaterial location are not considered.<br>
+            </p>
         <%
             String error = (String) request.getAttribute("errorString");
             String utilserror = (String) request.getAttribute("errorfromUtils");
@@ -28,7 +34,6 @@
             JSONArray average_data = (JSONArray) request.getAttribute("average_data");
 
         %>
-        <p>Error message: <%=error%></p>
         <form action="${pageContext.request.contextPath}/interactive" method="post">
             <strong>Select a center : </strong>
             <select name="center_name">
@@ -55,13 +60,14 @@
 
                 var dataset = [
                     {
-                        name: "Average",
-                        data: average
-                    },
-                    {
                         name: centername,
                         data: target
-                    }];
+                    },
+                    {
+                        name: "Average",
+                        data: average
+                    }
+                    ];
                 var chartdata = {
                     chart: {type: 'column'},
                     title: {text: 'Individual Center vs Average'},

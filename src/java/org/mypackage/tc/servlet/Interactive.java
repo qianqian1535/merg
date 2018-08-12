@@ -142,10 +142,12 @@ public class Interactive extends HttpServlet {
                 sum += ratio;
                 nCenters++;
 
-            } else {
-                double value = centers.get(target);
+            } else {               
+                double ratio = centers.get(target);
+                 sum += ratio;
+                nCenters++;
                 try {
-                    targetData.put(value);
+                    targetData.put(ratio);
                 } catch (JSONException ex) {
                     Logger.getLogger(Interactive.class.getName()).log(Level.SEVERE, null, ex);
                 }

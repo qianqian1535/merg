@@ -24,7 +24,7 @@
         <li><a href="home">Home</a></li>
         <li><a href="biocompleteness">Biomaterial Completeness</a></li>
                 <li><a href="centercompleteness"> Completeness by Center</a></li>
-                <li><a href="interactive">Interactive Center Completeness</a></li>
+                <li><a href="interactive">Interactive Completeness Comparison</a></li>
 
      </ul>
 
