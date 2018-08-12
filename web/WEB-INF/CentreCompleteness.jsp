@@ -22,7 +22,7 @@
             String error = (String) request.getAttribute("errorString");
             String utilserror = (String) request.getAttribute("errorfromUtils");
             JSONArray columnNames = (JSONArray) request.getAttribute("columnnames");
-            JSONArray data = (JSONArray) request.getAttribute("data");
+            JSONObject data = (JSONObject) request.getAttribute("data");
 
         %>
         <h1>Patient Record Completeness by Center</h1>

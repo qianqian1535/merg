@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,9 +51,21 @@ public class Interactive extends HttpServlet {
             request.setAttribute("centerNames", names);
 
             String centerNo = request.getParameter("center_name");
-            int centerNum = Integer.parseInt(centerNo);
-            Object centerName = names[centerNum];
-            request.setAttribute("center_name", centerName);
+            try {
+                int centerNum = Integer.parseInt(centerNo);
+                String centerName = (String) names[centerNum];
+                request.setAttribute("center_name", centerName);
+                JSONObject graphData = averageQuality(centersPercentage, centerName);
+
+                JSONArray target = graphData.getJSONArray("target");
+                JSONArray average = graphData.getJSONArray("average");
+
+                request.setAttribute("target_data", target);
+                request.setAttribute("average_data", average);
+            } catch (NumberFormatException ne) {
+                errorString += ne.getMessage();
+            }
+
         } catch (JSONException ex) {
             errorString += ex.getMessage();
         }
@@ -110,6 +124,44 @@ public class Interactive extends HttpServlet {
 
         return centerPercentage;
 
+    }
+
+    private JSONObject averageQuality(HashMap<String, Double> centers, String target) throws JSONException {
+        Iterator iterator = centers.keySet().iterator();
+        double sum = 0;
+        int nCenters = 0;
+        JSONObject data = new JSONObject(); //stores chart data
+        JSONArray targetData = new JSONArray();
+        JSONArray average = new JSONArray();
+        while (iterator.hasNext()) {
+
+            String centerName = (String) iterator.next();
+
+            if (!centerName.equals(target)) {
+                double ratio = centers.get(centerName);
+                sum += ratio;
+                nCenters++;
+
+            } else {
+                double value = centers.get(target);
+                try {
+                    targetData.put(value);
+                } catch (JSONException ex) {
+                    Logger.getLogger(Interactive.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        try {
+            average.put( sum / nCenters);
+
+        } catch (JSONException ex) {
+            Logger.getLogger(Interactive.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        data.put("target", targetData);
+        data.put("average", average);
+
+        return data;
     }
 
 }
